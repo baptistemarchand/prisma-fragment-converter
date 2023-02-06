@@ -20,6 +20,14 @@
         throw Error(`Unknown kind ${x.kind}`)
     }
 
+    const copy = () => {
+        navigator.clipboard.writeText(output).then(function() {
+            console.log('Async: Copying to clipboard was successful!');
+        }, function(err) {
+            console.error('Async: Could not copy text: ', err);
+        });
+    }
+
     const convert = () => {
         const a = gql(text)
         const out = convert_(a)
@@ -28,8 +36,24 @@
     }
 </script>
 
-<button on:click={convert}>CONVERT</button>
-<textarea bind:value={text}></textarea>
-<pre>
-    {output}
-</pre>
+    <textarea bind:value={text} placeholder="copy your prisma 1 fragment here" on:input={convert} rows="60"></textarea>
+    <pre>
+        {output}
+    </pre>
+    {#if output}
+        <button on:click={copy}>COPY TO CLIPBOARD</button>
+    {/if}
+
+<style>
+    textarea {
+        width: 500px;
+        height: 100%;
+        float: left;
+        border: 1px solid black;
+    }
+    pre {
+        float: left;
+        width: 500px;
+        margin-left: 20px;
+    }
+</style>
