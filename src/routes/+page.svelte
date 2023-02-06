@@ -36,7 +36,7 @@
     }
 </script>
 
-    <textarea bind:value={text} placeholder="copy your prisma 1 fragment here" on:input={convert} rows="60"></textarea>
+    <textarea bind:value={text} placeholder="paste your prisma 1 fragment here" on:input={convert} rows="60"></textarea>
     <pre>
         {output}
     </pre>
